@@ -35,8 +35,8 @@ public class PlanetaServiceImp implements PlanetaService {
 	}
 
 	@Override
-	public Mono<Void> remove(Planeta planeta) {
-		return planetaRepository.delete(planeta);
+	public Mono<Void> remove(String id) {
+		return planetaRepository.deleteById(id);
 	}
 
 }

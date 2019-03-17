@@ -15,9 +15,10 @@ public interface PlanetaService {
 	// Buscar por nome no banco de dados
 	Mono<Planeta> findByName(String nome);
 
-	//Adicionar um planeta (com nome, clima e terreno)
+	// Adicionar um planeta (com nome, clima e terreno)
 	Mono<Planeta> save(Planeta planeta);
-	
-	//Remover planeta
-	Mono<Void> remove(Planeta planeta);
+
+	// Remover planeta
+	Mono<Void> remove(String id);
+
 }
