@@ -1,5 +1,7 @@
 package br.com.washington.api.wars.api_wars.document;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,6 +10,7 @@ public class Planeta {
 
 	@Id
 	private String id;
+	@NotNull(message = "Nome deve ser preenchido")
 	private String nome;
 	private String clima;
 	private String terreno;

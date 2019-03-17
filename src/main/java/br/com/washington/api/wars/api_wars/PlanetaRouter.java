@@ -5,12 +5,16 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RequestPredicates.DELETE;
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 
+import java.io.IOException;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
+
+import br.com.washington.api.wars.api_wars.util.BusinessException;
 
 @Configuration
 public class PlanetaRouter {
@@ -20,7 +24,15 @@ public class PlanetaRouter {
 		return RouterFunctions.route(GET("/planetas").and(accept(MediaType.APPLICATION_JSON)), handler::findAll)
 				.andRoute(GET("/planeta/{id}").and(accept(MediaType.APPLICATION_JSON)), handler::findById)
 				.andRoute(GET("/planeta/name/{nome}").and(accept(MediaType.APPLICATION_JSON)), handler::findByName)
-				.andRoute(POST("/planeta").and(accept(MediaType.APPLICATION_JSON)), handler::save)
+				.andRoute(GET("/api/planetas").and(accept(MediaType.APPLICATION_JSON)), handler::findAllListApiPlanets)
+				.andRoute(POST("/planeta").and(accept(MediaType.APPLICATION_JSON)), request -> {
+					try {
+						return handler.save(request);
+					} catch (IOException | BusinessException e) {
+						e.printStackTrace();
+					}
+					return null;
+				})
 				.andRoute(DELETE("/planeta/{id}").and(accept(MediaType.APPLICATION_JSON)), handler::delete);
 	}
 }
