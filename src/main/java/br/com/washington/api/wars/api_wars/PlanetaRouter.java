@@ -23,7 +23,7 @@ public class PlanetaRouter {
 	public RouterFunction<ServerResponse> route(PlanetaHandler handler) {
 		return RouterFunctions.route(GET("/planetas").and(accept(MediaType.APPLICATION_JSON)), handler::findAll)
 				.andRoute(GET("/planeta/{id}").and(accept(MediaType.APPLICATION_JSON)), handler::findById)
-				.andRoute(GET("/planeta/name/{nome}").and(accept(MediaType.APPLICATION_JSON)), handler::findByName)
+				.andRoute(GET("/planeta/nome/{nome}").and(accept(MediaType.APPLICATION_JSON)), handler::findByName)
 				.andRoute(GET("/api/planetas").and(accept(MediaType.APPLICATION_JSON)), handler::findAllListApiPlanets)
 				.andRoute(POST("/planeta").and(accept(MediaType.APPLICATION_JSON)), request -> {
 					try {
